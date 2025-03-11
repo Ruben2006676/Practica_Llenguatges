@@ -1,4 +1,4 @@
-export class ISO 
+export type ISO =
 {
     iso_31662: string
     estado: string
@@ -7,7 +7,7 @@ export class ISO
     municipios: Municipio[]
     ciudades: string[]
 }
-class Municipio 
+type Municipio =
 {
     municipio: string
     capital: string
