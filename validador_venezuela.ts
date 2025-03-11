@@ -1,5 +1,4 @@
 import Ajv from "ajv"
-import fs from "fs/promises";
 import type {ISO} from "./typie_venezuela"
 import IsoSchema from "./typie_venezuela.json"
 
