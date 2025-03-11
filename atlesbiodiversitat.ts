@@ -1,4 +1,4 @@
-export class biodiversitat{
+export type biodiversitat= {
     especie_id : string
     nom_ctf: string
     nom_cat: string
