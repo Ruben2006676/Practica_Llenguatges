@@ -1,9 +1,10 @@
 import Ajv from "ajv"
+import { readFile } from "fs/promises"
 import type {ISO} from "./typie_venezuela"
 import IsoSchema from "./typie_venezuela.json"
 
-const data = await fs.readFile('./venezuela.json', 'utf-8')
-const isos: ISO[] = await data.json();
+const data = await readFile('./venezuela.json', 'utf-8')
+const isos: ISO[] = await JSON.parse(data);
 
 const ajv = new Ajv()
 const validateIso = ajv.compile(IsoSchema)
@@ -17,4 +18,3 @@ isos.forEach(iso => {
         console.log(iso)
     }
 })
-
