@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selector de Información</title>
-    <link rel="stylesheet" href="Web.css">
+    <link rel="stylesheet" href="Web.css"> 
 </head>
 <body>
     <div class="container">
         <h1>Selector de Información</h1>
         <div class="options">
-            <label><input type="radio" name="info" value="flora" checked> Flora</label>
-            <label><input type="radio" name="info" value="venezuela"> Venezuela</label>
+            <!-- Radio buttons para seleccionar entre atles y Venezuela -->
+            <label>
+                <input type="radio" name="info" value="atlesbiodiversitat_vw_flora_especies" checked> Biodiversitat
+            </label>
+            <label>
+                <input type="radio" name="info" value="venezuela"> Venezuela
+            </label>
         </div>
+        <!-- Contenedor donde se mostrará la información dinámicamente -->
         <div id="content" class="content">
-            <!-- Aquí se cargará la información dinámicamente -->
+            <!-- La información se cargará aquí -->
         </div>
     </div>
     <script src="Web.js"></script>
