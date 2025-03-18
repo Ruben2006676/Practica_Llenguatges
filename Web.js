@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Crea una tabla a partir de los datos
     function createTable(data) {
-        const table = document.createElement('table'); //Añade la tabla
+        const table = document.createElement('table');
         table.appendChild(createTableHeader(data[0])); // Añade el encabezado
         table.appendChild(createTableBody(data)); // Añade el cuerpo
         return table;
@@ -30,60 +30,55 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Crea el encabezado de la tabla
     function createTableHeader(firstItem) {
-        const thead = document.createElement('thead'); // Crea el encabezado
-        const headerRow = document.createElement('tr'); // Crea una fila
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
 
         Object.keys(firstItem).forEach(key => {
-            const th = document.createElement('th'); // Crea una celda de encabezado
-            th.textContent = key; // Añade el nombre de la columna
-            headerRow.appendChild(th); // Añade la celda a la fila
+            const th = document.createElement('th');
+            th.textContent = key;
+            headerRow.appendChild(th);
         });
 
-        thead.appendChild(headerRow); // Añade la fila al encabezado
-        return thead; // Devuelve el encabezado
+        thead.appendChild(headerRow);
+        return thead;
     }
 
     // Crea el cuerpo de la tabla
     function createTableBody(data) {
-        const tbody = document.createElement('tbody'); // Crea el cuerpo
+        const tbody = document.createElement('tbody');
 
-        // Recorre los elementos de los datos
         data.forEach(item => {
-            const row = document.createElement('tr'); // Crea una fila
+            const row = document.createElement('tr');
 
-            // Recorre las propiedades de cada elemento
             Object.entries(item).forEach(([key, value]) => {
-                const cell = document.createElement('td'); // Crea una celda
+                const cell = document.createElement('td');
                 cell.textContent = formatValue(value); // Formatea el valor
-                // Si es un array de municipios, crea una tabla anidada
                 if (key === 'municipios' && Array.isArray(value)) {
                     cell.textContent = ''; // Limpia el contenido si es un array
                     cell.appendChild(createTable(value)); // Crea una tabla anidada
-                } 
-                row.appendChild(cell); // Añade la celda a la fila
-            });    
-            tbody.appendChild(row); // Añade la fila al cuerpo
+                }
+                row.appendChild(cell);
+            });
+
+            tbody.appendChild(row);
         });
 
-        return tbody; // Devuelve el cuerpo
+        return tbody;
     }
 
     // Formatea valores (arrays, objetos o valores simples)
     function formatValue(value) {
-        // Si es un array, muestra los nombres separados por comas
         if (Array.isArray(value)) {
-            return value.map(item => item.nombre || JSON.stringify(item)).join(', '); // Muestra los nombres o el objeto como cadena
-            // Si es un objeto, muestra el objeto como cadena
+            return value.map(item => item.nombre || JSON.stringify(item)).join(', ');
         } else if (typeof value === 'object' && value !== null) {
-            return JSON.stringify(value); // Muestra el objeto como cadena
+            return JSON.stringify(value);
         }
-        return value; // Devuelve el valor tal cual
+        return value;
     }
 
     // Escucha cambios en los botones de radio
     radioButtons.forEach(radio => {
-        // Cuando cambia el valor del radio, carga el JSON correspondiente
-        radio.addEventListener('change', function () { 
+        radio.addEventListener('change', function () {
             loadJSON(this.value); // Carga el JSON correspondiente
         });
     });
