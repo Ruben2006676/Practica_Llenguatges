@@ -1,25 +1,39 @@
-import Ajv from "ajv"; // Importa la llibreria Ajv para validar dades JSON.
-import { readFile } from "fs/promises"; // Importa el mètode readFile per llegir arxius.
-import type { biodiversitat } from "./atlesbiodiversitat"; // Importa el tipus 'biodiversitat' des d'un altre arxiu per tipar les dades que s'utilitzaran.
-import bioSchema from "./atlesbiodiversitat.json"; // Importa el archivo JSON que probablemente contiene el esquema de validación.
+import Ajv from "ajv"
+import { readFile } from "fs/promises"
+import type {biodiversitat} from "./typie_atlesbiodiversitat"
+import bioSchema from "./atlesbiodiversitat_schema.json"
 
-const data = await readFile('./atlesbiodiversitat_vw_flora_especies.json', 'utf-8'); // Llegeix JSON amb les dades específiques de biodiversitat.
-const bios: biodiversitat[] = await JSON.parse(data); // Converteix l'arxiu JSON llegit en un array d'objectes 'biodiversitat'.
+const data = await readFile('./atlesbiodiversitat.json', 'utf-8')
+const bios: biodiversitat[] = JSON.parse(data);
 
-
-//Creem constants per crear un Ajv y un validador que compili el JSON amb JSONSchema
 const ajv = new Ajv()
 const validateBio = ajv.compile(bioSchema)
 
-// Filtrar només els registres que siguin vàlids
-const biosValidos = bios.filter(bio => validateBio(bio))
+const biosValidos: biodiversitat[] = [];
 
-//Utilitzem Slice per mostrar només els 5 primers arbres.
-const primerosCinco = biosValidos.slice(0, 5)
+bios.forEach(bio => {
+    const valid = validateBio(bio)
+    if(!valid){
+        console.log("Error: ", validateBio.errors)
+    }
+    else {
+        biosValidos.push(bio)
+    }
+})
 
-//Utilitzem reduce per calcular la quantitat total de caràcters que n'hi ha a desc_cat
-const totalCaracteres = biosValidos.reduce((total, bio) => total + bio.desc_cat.length, 0)
+// 6. Función 1: Usar map para obtener los nombres científicos y nombres en catalán
+const nombresCientificosCatala = biosValidos.map(bio => ({
+    // Crea un nuevo arreglo con solo el nombre científico y el nombre en catalán.
+    nom_ctf: bio.nom_ctf,
+    nom_cat: bio.nom_cat
+}));
+console.log("Nombres científicos y nombres en catalán:", nombresCientificosCatala);
+// Muestra el nuevo arreglo.
 
-// Mostrem els resultats de la funció slice y reduce
-console.log("Los primeros 5 árboles del JSON:", primerosCinco)
-console.log("Número total de caracteres en todas las descripciones en catalán:", totalCaracteres)
+// 7. Función 2: Usar reduce para contar el total de especies con descripción en español
+const totalDescCas = biosValidos.reduce((acumulador, bio) => {
+    return bio.desc_cas ? acumulador + 1 : acumulador;
+}, 0);
+// Cuenta cuántas especies tienen descripción en español.
+console.log("Total de especies con descripción en español:", totalDescCas);
+// Muestra el total.
