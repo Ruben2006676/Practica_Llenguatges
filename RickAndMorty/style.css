@@ -1,0 +1,135 @@
+/* Fuentes personalizadas (opcional) */
+@font-face {
+    font-family: 'Get Schwifty';
+    src: url('Fonts/get_schwifty.ttf');
+}
+
+/* Fondo de la página */
+#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('Imagenes/Fondo.jpeg');
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* Para que esté detrás del contenido */
+}
+
+/* Título de la página */
+#title-image {
+    display: block;
+    margin: 20px auto;
+    width: 300px; /* Ajusta el tamaño según sea necesario */
+}
+
+/* Estilo del contenedor de búsqueda */
+#search-container {
+    position: relative; /* Para posicionar las sugerencias correctamente */
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Estilo del input de búsqueda */
+#search-container input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Estilo del botón de búsqueda */
+#search-container button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #42b4ca;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Estilo del botón de búsqueda al pasar el ratón */
+#search-container button:hover {
+    background-color: #3698a8;
+}
+
+/* Estilo del contenedor de sugerencias */
+#suggestions-container {
+    position: absolute; /* Posicionamiento absoluto respecto al contenedor de búsqueda */
+    top: 100%; /* Coloca el contenedor debajo del input */
+    left: 0; /* Alinea el contenedor con el input */
+    background-color: #ffffff; /* Color de fondo blanco */
+    border: 1px solid #ccc; /* Borde gris */
+    border-radius: 5px; /* Bordes redondeados */
+    width: 100%; /* Mismo ancho que el input */
+    max-height: 200px; /* Altura máxima */
+    overflow-y: auto; /* Scroll si hay muchas sugerencias */
+    z-index: 1000; /* Para que esté por encima de otros elementos */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
+    margin-top: 5px; /* Espacio entre el input y las sugerencias */
+}
+
+/* Estilo de cada item de las sugerencias */
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333; /* Color de texto oscuro */
+    border-bottom: 1px solid #eee; /* Línea divisoria entre items */
+}
+
+/* Estilo de cada item de las sugerencias al pasar el ratón */
+.suggestion-item:hover {
+    background-color: #f0f0f0; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilo del contenedor del personaje */
+#character-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Estilo de la imagen del personaje */
+#character-img {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Estilo del nombre del personaje */
+#character-name {
+    font-family: 'Get Schwifty', sans-serif;
+    font-size: 35px;
+    color: #42b4ca;
+    -webkit-text-stroke: 1px #000;
+}
+
+/* Estilo de los detalles del personaje */
+#character-status,
+#character-species,
+#character-type,
+#character-gender,
+#character-origin,
+#character-location {
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Estilo del mensaje de error */
+#error-message {
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    color: #ff0000; /* Color rojo para el mensaje de error */
+}
