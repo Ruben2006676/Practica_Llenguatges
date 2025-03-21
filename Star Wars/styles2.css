@@ -1,0 +1,76 @@
+/*Css per fer interactiu i atractiu l'html*/
+
+/* Importa la font 'Orbitron' des de Google Fonts para darle un estil d'star wars al text */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+/* Aquí es defineix l'estil general de la pàgina html, inclou fons negre i la lletra de color groc/ataronjat*/
+body {
+    background: radial-gradient(circle, #000 30%, #1a1a1a 100%);
+    color: #ffd700;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Això de h1 dona estil al títol, amb una mida gran, majúscules y un efecte de color groc-taronja */
+h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px #ffd700, 0 0 20px #ffa500;
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+/* Estilitza els botons amb un fons vermell-taronja, bordes redondejats y un efecte de llum com láser */
+button {
+    background: linear-gradient(90deg, #ff0000, #ff4500);
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    text-transform: uppercase;
+    font-weight: bold;
+    box-shadow: 0 0 10px #ff0000;
+}
+
+/*Quan l'usuari passa el ratolí sobre el botó, canvia de vermell a verd per a simular un láser que s'encén.*/
+button:hover {
+    background: linear-gradient(90deg, #00ff00, #00ff88);
+    box-shadow: 0 0 20px #00ff00;
+}
+
+.card {
+    background: rgba(20, 20, 20, 0.8);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    transition: 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    transform: scale(1.05);
+}
+
+/* Defineix una animació que fa que els elements apareixin desde dalt.*/
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.container, .card, button {
+    animation: fadeIn 1s ease-in-out;
+}

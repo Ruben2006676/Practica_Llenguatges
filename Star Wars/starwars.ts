@@ -1,43 +1,44 @@
-// URL de la API de Star Wars (personajes)
+// URL de l'API de Star Wars (personatges)---Arxiu per compilar.
 const SWAPI_URL = 'https://swapi.dev/api/people/';
 
-// Variables para los elementos HTML
-const inputSearch = document.getElementById("search") as HTMLInputElement;
-const characterContainer = document.getElementById("character-container");
-const buttonSearch = document.getElementById("search-button");
-const suggestionsContainer = document.getElementById("suggestions-container");
+// Variables per als elements HTML
+const inputSearch = document.getElementById("search") as HTMLInputElement; // Camp de cerca
+const characterContainer = document.getElementById("character-container"); // Contenidor del personatge
+const buttonSearch = document.getElementById("search-button"); // Botó de cerca
+const suggestionsContainer = document.getElementById("suggestions-container"); // Contenidor de suggeriments
 
-// Interfaz para los personajes de Star Wars
+// Interfície per als personatges de Star Wars
 interface StarWarsCharacter {
-  name: string;
-  height: string;
-  mass: string;
-  hair_color: string;
-  skin_color: string;
-  eye_color: string;
-  birth_year: string;
-  gender: string;
-  homeworld: string;
-  films: string[];
-  species: string[];
-  vehicles: string[];
+  name: string; 
+  height: string; 
+  mass: string; 
+  hair_color: string; 
+  skin_color: string; 
+  eye_color: string; 
+  birth_year: string; 
+  gender: string; 
+  homeworld: string; 
+  films: string[]; 
+  species: string[]; 
+  vehicles: string[]; 
   starships: string[];
-  created: string;
+  created: string; 
   edited: string;
-  url: string;
+  url: string; 
 }
 
-// Array para almacenar los nombres de los personajes
+// Array per emmagatzemar els noms dels personatges
 let characterNamesList: string[] = [];
 
-// Función para obtener los datos de la API
+// Funció per obtenir les dades de l'API
 async function fetchStarWarsCharacters() {
   try {
+    // Fem una sol·licitud a l'API de Star Wars
     const apiResponse = await fetch(SWAPI_URL);
     const data = await apiResponse.json();
     const characters: StarWarsCharacter[] = data.results;
 
-    // Usamos reduce para extraer los nombres de los personajes
+    // Utilitzem reduce per extreure els noms dels personatges
     characterNamesList = characters.reduce((names: string[], character) => {
       names.push(character.name);
       return names;
@@ -46,45 +47,45 @@ async function fetchStarWarsCharacters() {
     console.error('Error:', error);
   }
 }
-fetchStarWarsCharacters();
+fetchStarWarsCharacters(); // Cridem la funció per carregar els noms dels personatges
 
-// Función para mostrar sugerencias
+// Funció per mostrar suggeriments
 function displayCharacterSuggestions() {
-  const searchQuery = inputSearch.value.toLowerCase();
+  const searchQuery = inputSearch.value.toLowerCase(); // Obtenim el valor de la cerca en minúscules
   if (suggestionsContainer) {
-    suggestionsContainer.innerHTML = ''; // Limpiamos el contenedor de sugerencias
+    suggestionsContainer.innerHTML = ''; // Netegem el contenidor de suggeriments
   }
   if (searchQuery.length > 0) {
-    // Usamos slice para limitar las sugerencias a las primeras 5 coincidencias
+    // Utilitzem slice per limitar les suggerències a les primeres 5 coincidències
     const matchingNames = characterNamesList
-      .filter(name => name.toLowerCase().includes(searchQuery))
-      .slice(0, 5);
+      .filter(name => name.toLowerCase().includes(searchQuery)) // Filtrem els noms que coincideixen amb la cerca
+      .slice(0, 5); // Limitam a 5 suggerències
 
     matchingNames.forEach(name => {
-      const suggestionElement = document.createElement('div');
-      suggestionElement.textContent = name;
-      suggestionElement.classList.add('suggestion-item');
+      const suggestionElement = document.createElement('div'); // Creem un div per a cada suggerència
+      suggestionElement.textContent = name; // Afegim el nom del personatge
+      suggestionElement.classList.add('suggestion-item'); // Afegim una classe per als estils
       suggestionElement.addEventListener('click', () => {
-        inputSearch.value = name;
+        inputSearch.value = name; // Omplim el camp de cerca amb el nom seleccionat
         if (suggestionsContainer) {
-          suggestionsContainer.innerHTML = '';
+          suggestionsContainer.innerHTML = ''; // Borrem les suggerències després de seleccionar-ne una
         }
-        findCharacter(); // Llamamos a la función de búsqueda
+        findCharacter(); // Cridem la funció de cerca
       });
-      suggestionsContainer?.appendChild(suggestionElement);
+      suggestionsContainer?.appendChild(suggestionElement); // Afegim la suggerència al contenidor
     });
   }
 }
 
-// Función para buscar un personaje
+// Funció per buscar un personatge
 async function findCharacter() {
-  const searchedName = inputSearch?.value.toLowerCase();
+  const searchedName = inputSearch?.value.toLowerCase(); // Obtenim el valor de la cerca en minúscules
   try {
-    const apiResponse = await fetch(SWAPI_URL);
+    const apiResponse = await fetch(SWAPI_URL); // Fem una sol·licitud a l'API
     const data = await apiResponse.json();
     const characters: StarWarsCharacter[] = data.results;
 
-    // Usamos reduce para encontrar el primer personaje que coincida con el nombre buscado
+    // Utilitzem reduce per trobar el primer personatge que coincideixi amb el nom buscat
     const foundCharacter = characters.reduce((result: StarWarsCharacter | null, character) => {
       if (character.name.toLowerCase().includes(searchedName)) {
         return character;
@@ -93,6 +94,7 @@ async function findCharacter() {
     }, null);
 
     if (foundCharacter && characterContainer) {
+      // Mostrem les dades del personatge trobat
       characterContainer.innerHTML = `
         <div class="character-card">
           <h3>${foundCharacter.name}</h3>
@@ -106,21 +108,22 @@ async function findCharacter() {
         </div>
       `;
     } else if (characterContainer) {
+      // Si no es troba el personatge, mostrem un missatge d'error
       characterContainer.innerHTML = `<p id="error-message">Character not found. Please try again.</p>`;
     }
   } catch (error) {
     console.error(error);
     if (characterContainer) {
+      // Si hi ha un error, mostrem un missatge d'error
       characterContainer.innerHTML = `<p id="error-message">An error occurred. Please try again later.</p>`;
     }
   }
 }
 
-// Event listeners
-buttonSearch?.addEventListener("click", findCharacter);
+buttonSearch?.addEventListener("click", findCharacter); // Cerca en fer clic al botó
 inputSearch?.addEventListener("keypress", e => {
   if (e.key === "Enter") {
-    findCharacter();
+    findCharacter(); // Cerca en prémer Enter
   }
 });
-inputSearch?.addEventListener("input", displayCharacterSuggestions);
+inputSearch?.addEventListener("input", displayCharacterSuggestions); // Mostra suggeriments mentre s'escriu
