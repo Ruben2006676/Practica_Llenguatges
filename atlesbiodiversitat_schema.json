@@ -1,0 +1,46 @@
+﻿{
+  "$ref": "#/definitions/biodiversitat",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "biodiversitat": {
+      "additionalProperties": false,
+      "properties": {
+        "desc_cas": {
+          "type": "string"
+        },
+        "desc_cat": {
+          "type": "string"
+        },
+        "desc_eng": {
+          "type": "string"
+        },
+        "especie_id": {
+          "type": "string"
+        },
+        "nom_cas": {
+          "type": "string"
+        },
+        "nom_cat": {
+          "type": "string"
+        },
+        "nom_ctf": {
+          "type": "string"
+        },
+        "nom_eng": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "especie_id",
+        "nom_ctf",
+        "nom_cat",
+        "nom_cas",
+        "nom_eng",
+        "desc_cat",
+        "desc_cas",
+        "desc_eng"
+      ],
+      "type": "object"
+    }
+  }
+}
